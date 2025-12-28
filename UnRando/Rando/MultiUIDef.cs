@@ -14,7 +14,7 @@ internal class MultiUIDef : UIDef
     [JsonConstructor]
     private MultiUIDef() { }
 
-    internal MultiUIDef(List<UIDef> uiDefs) { this.uiDefs = new(uiDefs); }
+    internal MultiUIDef(List<UIDef> uiDefs) { this.uiDefs = [.. uiDefs]; }
 
     public override string GetPostviewName() => string.Join(", ", uiDefs.Select(ui => ui.GetPostviewName()).ToArray());
 

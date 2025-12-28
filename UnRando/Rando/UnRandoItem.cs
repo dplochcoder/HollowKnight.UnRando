@@ -3,9 +3,6 @@ using ItemChanger.Placements;
 using ItemChanger.Tags;
 using ItemChanger.Util;
 using Modding;
-using Mono.Security.Protocol.Tls;
-using PurenailCore.SystemUtil;
-using RandomizerCore.Exceptions;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -30,7 +27,7 @@ internal class UnRandoCheck : AbstractItem
 
     public override AbstractItem Clone() => new UnRandoCheck();
 
-    private AbstractPlacement? GetRealPlacement(bool forReal)
+    private static AbstractPlacement? GetRealPlacement(bool forReal)
     {
         var mod = UnRandoModule.Get()!;
 
@@ -94,7 +91,7 @@ internal class UnRandoCheck : AbstractItem
         var scene = (checkPlacement as IPrimaryLocationPlacement)?.Location.sceneName;
 
         // Remove item sync tags for the actual items.
-        List<AbstractItem> items = new(p?.Items ?? [Nothing()]);
+        List<AbstractItem> items = [.. p?.Items ?? [Nothing()]];
         if (ModHooks.GetMod("ItemSyncMod") is Mod)
         {
             items.ForEach(RemoveItemSyncTags);
